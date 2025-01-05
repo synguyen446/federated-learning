@@ -1,10 +1,6 @@
-import tensorflow as tf
 from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.layers import Dense, Dropout,Conv2D, Flatten, MaxPooling2D
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import StandardScaler
-import seaborn as sns
 import numpy as np
 import pandas as pd
 
@@ -43,4 +39,6 @@ X_test  = np.array(imgs_test).reshape(-1, 28, 28, 1)
 model = utils.load_model()
 model.fit(X_train,  y_train, epochs= 10, batch_size=128)
 model.save("centralized-model.keras")
+
+utils.visualize(model)
 
