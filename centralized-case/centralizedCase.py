@@ -40,5 +40,5 @@ model = utils.load_model()
 model.fit(X_train,  y_train, epochs= 10, batch_size=128)
 model.save("centralized-model.keras")
 
-utils.visualize(model)
+utils.visualize(model,X_train)
 
