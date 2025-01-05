@@ -1,8 +1,8 @@
 from tensorflow.keras.utils import to_categorical
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 import pandas as pd
+import utils
 
 df = pd.read_csv(r"") # Your training data directory
 df_test = pd.read_csv(r"") # Your testing data directory
