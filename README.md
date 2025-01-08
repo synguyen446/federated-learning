@@ -101,7 +101,7 @@ X_train  = np.array(imgs_train).reshape(-1, 28, 28, 1)
 X_test  = np.array(imgs_test).reshape(-1, 28, 28, 1)
 ```
 **5. Loading model**
-    + We will now load the model from utils module.
+    + We will now load the model from [utils](https://github.com/synguyen446/sign-language-translator/blob/main/centralized-case/utils.py) module.
     + We will train the model on 10 epochs (10 iterations), and 128 batch size.
     + We will save the model for future testing.
 ```python
