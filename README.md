@@ -53,7 +53,7 @@ model = tf.keras.Sequential(
 ### Centralized Case
 This implementation is the traditional machine learning approach, where the model is trained on 8000 samples, and test on a different dataset.
 #### Procedure
-1. Import necessary packages
+**1. Import necessary packages.**
 ```python
 from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import StandardScaler
@@ -61,7 +61,7 @@ import numpy as np
 import pandas as pd
 import utils
 ```
-2. Read in the data
+**2. Read in the data.**
 ```python
 df = pd.read_csv(r"") # Your training data directory
 df_test = pd.read_csv(r"") # Your testing data directory
@@ -70,13 +70,47 @@ y_train = df['label']
 X_test = df_test.drop(columns= "label")
 y_test= df_test["label"]
 ```
-3. Standardizing the data
+**3. Standardizing the data.**
    + Create a scaler object
    + For training data, we want to fit (calculating parameters such as mean, standard deviation, etc) and then transform (applying the parameters to scale the training data)
-   + For testing data, we want to keep the same parameters 
+   + For testing data, we want to keep the same parameters as the training data. Thus, we will only transform. 
 ```python
-scaler = StandardScaler()                 # Create a scaler object
-X_train = scaler.fit_transform(X_train)   # 
+scaler = StandardScaler()                 
+X_train = scaler.fit_transform(X_train)   
 X_test = scaler.transform(X_test)
+```
+**4. Transforming the pixels into the image.**
+   + We will loop through every training/testing sample and transform them into an array object using numpy array method (np.array)
+   + We then reshape them into a 28x28 image using .reshape((28,28))
+   + Lastly, we will need to reshape one more time; This time there are 4 parameters:  
+         *-1      : automatically adjust to sample size;  
+          (28,28): image size;  
+          1      : one channel, the image is gray scale*
+```python
+for i in range(len(X_train)):
+    pixel_data = X_train[i]
+    image = np.array(pixel_data, dtype=np.float32).reshape((28, 28))
+    imgs_train.append(image)
+
+for i in range(len(X_test)):
+    pixel_data = X_test[i]
+    image = np.array(pixel_data, dtype=np.float32).reshape((28, 28))
+    imgs_test.append(image)
+
+X_train  = np.array(imgs_train).reshape(-1, 28, 28, 1)
+X_test  = np.array(imgs_test).reshape(-1, 28, 28, 1)
+```
+**5. Loading model**
+    + We will now load the model from utils module.
+    + We will train the model on 10 epochs (10 iterations), and 128 batch size.
+    + We will save the model for future testing.
+```python
+model = utils.load_model()
+model.fit(X_train,  y_train, epochs= 10, batch_size=128)
+model.save("centralized-model.keras")
+```
+**6 Visualizing the result**
+```python
+utils.visualize(model,X_train)
 ```
 ### Federated Learning Case 
