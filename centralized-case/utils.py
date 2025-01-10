@@ -1,5 +1,8 @@
 from tensorflow.keras.layers import Dense, Dropout, Conv2D, Flatten, MaxPooling2D
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 
 def load_model():
     model = tf.keras.Sequential(
@@ -24,7 +27,7 @@ def load_model():
 
     return model
 
-def visualize(model,X_test):
+def visualize(model,X_test,y_test):
     y_pred = model.predict(X_test)
     y_pred_classes = y_pred.argmax(axis=1)
     y_true = y_test.argmax(axis=1)
@@ -39,3 +42,7 @@ def visualize(model,X_test):
     plt.title('Confusion Matrix')
     plt.show()
     
+def evaluate(model, X_test, y_test):
+    accuracy, loss = model.evaluate(X_test,y_test, batch_size = 32)
+    print(f"Accuracy: {accuracy:.3f}")
+    print(f"Loss: {loss:3f}")

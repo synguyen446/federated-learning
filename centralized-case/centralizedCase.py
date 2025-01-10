@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import utils
 
-df = pd.read_csv(r"") # Your training data directory
-df_test = pd.read_csv(r"") # Your testing data directory
+df = pd.read_csv(r"C:\Users\syngu\GitHub\sign-language-translator\data\sign-language\sign-mnist.csv") # Your training data directory
+df_test = pd.read_csv(r"C:\Users\syngu\GitHub\sign-language-translator\data\sign-language\test\test_sample.csv") # Your testing data directory
 X_train = df.drop(columns="label")
 y_train = df['label']
 X_test = df_test.drop(columns= "label")
@@ -40,5 +40,6 @@ model = utils.load_model()
 model.fit(X_train,  y_train, epochs= 10, batch_size=128)
 model.save("centralized-model.keras")
 
-utils.visualize(model,X_train)
+utils.evaluate(model,X_test,y_test)
+utils.visualize(model,X_test,y_test)
 
