@@ -2,6 +2,9 @@ import pandas as pd
 from tensorflow.keras.layers import Dense, Dropout, Conv2D, Flatten, MaxPooling2D
 from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 import tensorflow as tf
 import numpy as np
 
@@ -93,7 +96,7 @@ def prep_data(X_train,X_test, y_train, y_test):
 
     return X_train,X_test,y_train, y_test
 
-def visualize(model, X_train):
+def visualize(model, X_test,y_test):
     y_pred = model.predict(X_test)
     y_pred_classes = y_pred.argmax(axis=1)
     y_true = y_test.argmax(axis=1)

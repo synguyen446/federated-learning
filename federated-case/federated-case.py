@@ -8,7 +8,7 @@ loss, accuracy = model.evaluate(X_test, y_test,batch_size=32)
 print(f"Evaluation Accuracy: {accuracy:.5f}")
 print(f"Evaluation Loss: {loss:.5f}")
 
-utils.visualize(model,X_test)
+utils.visualize(model,X_test, y_test)
 
 
 
